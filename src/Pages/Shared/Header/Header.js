@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <footer>
-            <p><small>Copyright @ {}</small></p>
+            <h2>Header</h2>
         </footer>
     );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <header>
-            <h2>Header</h2>
+            <p><small>Copyright @{new Date().getFullYear()}</small></p>
         </header>
     );
 };

@@ -44,8 +44,10 @@ const Login = () => {
     if (user) {
         navigate(from, { replace: true });
     }
-    const resetPassword = async() => {
-        
+    const resetPassword = async () => {
+        const email = emailRef.current.value;
+        await sendPasswordResetEmail(email);
+        alert('Sent email');
     }
 
 
@@ -67,10 +69,10 @@ const Login = () => {
 
                 {errorElement}
 
-                <p>New Here? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={navigateRegister}>
+                <p>New Here? <Link to="/register" className='text-primary pe-auto text-decoration-none' onClick={navigateRegister}>
                     Please Register
                 </Link></p>
-                <p>Forgot Password? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={resetPassword}>
+                <p>Forgot Password? <Link to="/register" className='text-primary pe-auto text-decoration-none' onClick={resetPassword}>
                     Reset Password
                 </Link></p>
                 <SocialLogIn></SocialLogIn>

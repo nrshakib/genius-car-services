@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import SocialLogIn from './SocialLogIn/SocialLogIn';
@@ -17,18 +17,18 @@ const Login = () => {
 
     let errorElement;
 
-    if (error) {
-        errorElement = <div>
-            <p className='text-danger'>Error: {error?.message}</p>
-        </div>
-    }
-
     const [
         signInWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+
+    const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+    if (error) {
+        errorElement = <p className='text-danger'>Error: {error?.message}</p>
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -44,6 +44,9 @@ const Login = () => {
     if (user) {
         navigate(from, { replace: true });
     }
+    const resetPassword = async() => {
+        
+    }
 
 
     return (
@@ -58,12 +61,17 @@ const Login = () => {
                     <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
-                    Submit
+                <Button variant="primary w-50 mx-auto d-block mb-2" type="submit">
+                    Log In
                 </Button>
-                {errorElement};
+
+                {errorElement}
+
                 <p>New Here? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={navigateRegister}>
                     Please Register
+                </Link></p>
+                <p>Forgot Password? <Link to="/register" className='text-danger pe-auto text-decoration-none' onClick={resetPassword}>
+                    Reset Password
                 </Link></p>
                 <SocialLogIn></SocialLogIn>
             </Form>

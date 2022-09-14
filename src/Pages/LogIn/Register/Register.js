@@ -2,9 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import './Register.css';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import SocialLogIn from '../SocialLogIn/SocialLogIn';
 import { useState } from 'react';
+import Loading from '../../Shared/Loading/Loading';
 
 const Register = () => {
 
@@ -14,7 +15,9 @@ const Register = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate();
 
@@ -22,19 +25,20 @@ const Register = () => {
         navigate('/login');
     }
 
-    if (user) {
-        navigate('/home');
+    if (loading || updating) {
+        return <Loading></Loading>
     }
 
-    const handleRegister = event => {
+    const handleRegister = async (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        if (agree) {
-            createUserWithEmailAndPassword(email, password);
-        }
+        await createUserWithEmailAndPassword(email, password);
+        await updateProfile({ displayName: name })
+        alert('Updated Profile');
+        navigate('/home');
     }
 
     return (
@@ -57,6 +61,7 @@ const Register = () => {
                 Please LogIn
             </Link></p>
             <SocialLogIn></SocialLogIn>
+            
         </div>
     );
 };

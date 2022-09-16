@@ -6,6 +6,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import SocialLogIn from '../SocialLogIn/SocialLogIn';
 import { useState } from 'react';
 import Loading from '../../Shared/Loading/Loading';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Register = () => {
 
@@ -43,6 +44,7 @@ const Register = () => {
 
     return (
         <div className='register-form'>
+            <PageTitle title='Register'></PageTitle>
             <h2 style={{ textAlign: 'center' }}>Please Register</h2>
             <form onSubmit={handleRegister}>
                 <input type="text" name="name" id="" placeholder='Your Name' />
@@ -61,7 +63,7 @@ const Register = () => {
                 Please LogIn
             </Link></p>
             <SocialLogIn></SocialLogIn>
-            
+
         </div>
     );
 };

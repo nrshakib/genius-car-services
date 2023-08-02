@@ -47,6 +47,14 @@ async function run() {
       res.send(service);
     });
 
+    //post added service
+
+    app.post("/service", async (req, res) => {
+      const newService = req.body;
+      const result = await serviceCollection.insertOne(newService);
+      res.send(result);
+    });
+
     console.log("You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error

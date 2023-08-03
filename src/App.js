@@ -11,28 +11,15 @@ import Register from "./Pages/LogIn/Register/Register";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import RequireAuth from "./Pages/LogIn/RequireAuth/RequireAuth";
 import AddService from "./Pages/AddService/AddService";
+import ManageServices from "./Pages/Manage Services/ManageServices";
 
 function App() {
   return (
     <div>
       <Header></Header>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Home></Home>
-            </RequireAuth>
-          }
-        ></Route>
-        <Route
-          path="/home"
-          element={
-            <RequireAuth>
-              <Home></Home>
-            </RequireAuth>
-          }
-        ></Route>
+        <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/home" element={<Home></Home>}></Route>
         <Route
           path="/service/:serviceId"
           element={<ServiceDetail></ServiceDetail>}
@@ -53,6 +40,14 @@ function App() {
           element={
             <RequireAuth>
               <AddService />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/manageservice"
+          element={
+            <RequireAuth>
+              <ManageServices />
             </RequireAuth>
           }
         ></Route>

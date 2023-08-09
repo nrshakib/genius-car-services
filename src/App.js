@@ -14,6 +14,8 @@ import AddService from "./Pages/AddService/AddService";
 import ManageServices from "./Pages/Manage Services/ManageServices";
 import Services from "./Pages/Home/Services/Services";
 import Experts from "./Pages/Home/Experts/Experts";
+import { ToastContainer } from "react-toastify";
+import Orders from "./Pages/Orders/Orders";
 
 function App() {
   return (
@@ -55,9 +57,18 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+        <Route
+          path="/orders"
+          element={
+            <RequireAuth>
+              <Orders />
+            </RequireAuth>
+          }
+        ></Route>
         <Route path="/*" element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
+      <ToastContainer />;
     </div>
   );
 }

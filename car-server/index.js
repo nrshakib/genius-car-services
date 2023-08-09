@@ -32,6 +32,7 @@ async function run() {
     const serviceCollection = client
       .db("car-service-db")
       .collection("services");
+    const orderCollection = client.db("car-service-db").collection("orders");
 
     app.get("/service", async (req, res) => {
       const query = {};
@@ -60,6 +61,14 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await serviceCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    //order Collection API
+
+    app.post("/order", async (req, res) => {
+      const order = req.body;
+      const result = await orderCollection.insertOne(order);
       res.send(result);
     });
 
